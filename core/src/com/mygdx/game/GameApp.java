@@ -9,21 +9,21 @@ public class GameApp extends ApplicationAdapter {
     public static final int HEIGHT = 450;
 
     public static final String TITLE = "Doge Life";
-	GameStateManager gsm;
+	GameStateManager game;
 
 	@Override
 	public void create () {
-		gsm = new GameStateManager();
-		gsm.create();
+		game = new GameStateManager();
+		game.create();
 	}
 
 	@Override
 	public void render () {
-		gsm.render();
+		game.render();
 	}
 	
 	@Override
 	public void dispose () {
-		gsm.dispose();
+		game.dispose();
 	}
 }

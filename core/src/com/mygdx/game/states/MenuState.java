@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.GameApp;
 
 public class MenuState implements Screen {
@@ -14,16 +15,18 @@ public class MenuState implements Screen {
     private Texture background;
     private Texture playBtn;
 
-    final GameStateManager gsm;
 
-    public MenuState(GameStateManager gsm) {
+    final GameStateManager game;
 
-        this.gsm = gsm;
+    public MenuState(GameStateManager game) {
+
+        this.game = game;
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, 800, 450);
+        cam.setToOrtho(false, GameApp.WIDTH / 2, GameApp.HEIGHT / 2);
 
         background = new Texture("background.png");
         playBtn = new Texture("playbtn.png");
+
     }
 
 
@@ -38,12 +41,17 @@ public class MenuState implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         cam.update();
-        gsm.sb.setProjectionMatrix(cam.combined);
+        game.sb.setProjectionMatrix(cam.combined);
 
-        gsm.sb.begin();
-        gsm.sb.draw(background, 0, 0, GameApp.WIDTH, GameApp.HEIGHT);
-        gsm.sb.draw(playBtn, (GameApp.WIDTH - playBtn.getWidth()) / 2 , GameApp.HEIGHT / 2);
-        gsm.sb.end();
+        game.sb.begin();
+        game.sb.draw(background, cam.position.x - (cam.viewportWidth / 2), 0, GameApp.WIDTH, GameApp.HEIGHT);
+        game.sb.draw(playBtn, (cam.viewportWidth - playBtn.getWidth()) / 2 , (cam.viewportHeight - playBtn.getHeight()) / 2);
+        game.sb.end();
+
+        if (Gdx.input.isTouched()) {
+            game.setScreen(new PlayState(game));
+            dispose();
+        }
     }
 
     @Override
