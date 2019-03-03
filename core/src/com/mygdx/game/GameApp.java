@@ -18,9 +18,7 @@ public class GameApp extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
-		game.render();
-	}
+	public void render () { game.render(); }
 	
 	@Override
 	public void dispose () {

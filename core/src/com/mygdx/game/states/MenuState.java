@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.GameApp;
 
 public class MenuState implements Screen {
@@ -40,17 +39,21 @@ public class MenuState implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // Set viewpoint
         cam.update();
         game.sb.setProjectionMatrix(cam.combined);
 
+        // Begin drawing
         game.sb.begin();
         game.sb.draw(background, cam.position.x - (cam.viewportWidth / 2), 0, GameApp.WIDTH, GameApp.HEIGHT);
         game.sb.draw(playBtn, (cam.viewportWidth - playBtn.getWidth()) / 2 , (cam.viewportHeight - playBtn.getHeight()) / 2);
         game.sb.end();
+        // End drawing
 
-        if (Gdx.input.isTouched()) {
+        // Handle touch
+        if (Gdx.input.justTouched()) {
             game.setScreen(new PlayState(game));
-            dispose();
+            this.dispose();
         }
     }
 

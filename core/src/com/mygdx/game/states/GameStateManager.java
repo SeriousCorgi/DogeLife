@@ -17,9 +17,7 @@ public class GameStateManager extends Game{
         this.setScreen(menuState);
     }
 
-    public void render() {
-        super.render();
-    }
+    public void render() { super.render(); }
 
     public void dispose() {
         sb.dispose();
